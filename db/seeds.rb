@@ -24,13 +24,15 @@ wikis = Wiki.all
 admin = User.create!(
   email:    'admin@example.com',
   password: 'helloworld',
-  # role:     'admin'  #need to uncomment and reseed after I merge Pundit branch
+  role:     'admin',
+  confirmed_at: DateTime.now
 )
 
 # Create a standard member
 member = User.create!(
   email:    'member@example.com',
-  password: 'helloworld'
+  password: 'helloworld',
+  confirmed_at: DateTime.now
 )
 
 puts 'Seed finished'
