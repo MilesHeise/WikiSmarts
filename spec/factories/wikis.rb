@@ -3,6 +3,6 @@ FactoryBot.define do
     title 'MyString'
     body 'MyText'
     private false
-    user
+    association :user
   end
 end

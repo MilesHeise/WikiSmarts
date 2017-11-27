@@ -11,17 +11,8 @@ end
 group :development do
   gem 'sqlite3'
   gem 'web-console', '~> 2.0'
+  gem 'letter_opener'
 end
-
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
-gem 'jquery-rails'
-gem 'turbolinks'
-gem 'bootstrap'
-gem 'figaro'
-gem 'devise'
-gem 'pundit'
 
 group :development, :test do
   gem 'byebug'
@@ -32,3 +23,14 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'pry-rails'
 end
+
+gem 'bootstrap-sass', '~> 3.3.7'
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'jquery-rails'
+gem 'turbolinks'
+gem 'figaro'
+gem 'devise'
+gem 'pundit'
+gem 'stripe'

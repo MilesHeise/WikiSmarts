@@ -1,21 +1,15 @@
 Rails.application.routes.draw do
-  get 'wikis/index'
-
-  get 'wikis/show'
-
-  get 'wikis/new'
-
-  get 'wikis/edit'
+  root 'welcome#index'
 
   devise_for :users
 
   resources :wikis
 
+  resources :charges, only: %i[new create]
+
   get 'welcome/index'
 
   get 'welcome/about'
-
-  root 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
