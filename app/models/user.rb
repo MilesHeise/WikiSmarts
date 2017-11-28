@@ -6,11 +6,12 @@ class User < ActiveRecord::Base
 
   has_many :wikis
 
-  after_initialize :set_standard_role
+  after_create :set_standard_role
 
   enum role: %i[standard premium admin]
 
   def set_standard_role
-    self.role ||= :standard
+    self.role = :standard
+    save
   end
 end

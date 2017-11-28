@@ -1,5 +1,5 @@
-<% if user.role = :premium %>
-  <%= link_to charges_path, class: 'btn btn-danger', method: :destroy do %>
+<% if user.role == "premium" %>
+  <%= link_to charges_path, class: 'btn btn-danger', method: :delete do %>
     Downgrade Membership?
     <!-- ## need to write a warning for this as well in next checkpoint that says
     what will happen if they downgrade ## data: { confirm: 'Are you sure you want to delete this post?' }-->
