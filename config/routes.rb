@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :wikis
 
-  resources :charges, only: %i[new create]
+  resource :charges, only: %i[new create destroy]
 
   get 'welcome/index'
 

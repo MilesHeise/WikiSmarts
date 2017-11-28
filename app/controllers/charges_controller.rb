@@ -1,12 +1,9 @@
-class ChargeController < ApplicationController
-  after_save { current_user.role ||= :premium }
-
+class ChargesController < ApplicationController
   def new
     @stripe_btn_data = {
       key: Rails.configuration.stripe[:publishable_key].to_s,
-      description: "Membership - #{current_user.name}",
-      # does my current_user even have a name property at the moment?
-      amount: Amount.default
+      description: "Membership - #{current_user.email}",
+      amount: 15_00
     }
   end
 
@@ -18,23 +15,22 @@ class ChargeController < ApplicationController
 
     charge = Stripe::Charge.create(
       customer: customer.id,
-      amount: Amount.default,
+      amount: 15_00,
       description: "Membership - #{current_user.email}",
       currency: 'usd'
     )
+
+    current_user.role ||= :premium
 
     flash[:notice] = "Thanks for upgrading, #{current_user.email}! Ready to start your first private wiki?"
     redirect_to wikis_path # set this to new premium wiki create page?
    rescue Stripe::CardError => e
      flash[:alert] = e.message
-     redirect_to new_charge_path
+     redirect_to new_charges_path
    end
 
-  private
-
-  class Amount
-    def default
-      15_00
-    end
+  def destroy
+    current_user.set_standard_role
+    redirect_to :back
   end
 end

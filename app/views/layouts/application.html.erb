@@ -26,7 +26,7 @@
         -
         <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
         -
-        <%= render partial: 'oh no where should this go?', locals: { user: current_user } %>
+        <%= render partial: 'layouts/premium', locals: { user: current_user } %>
       <% else %>
         <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %>
         -
@@ -38,17 +38,3 @@
 
   </body>
 </html>
-
-<!-- content for oh no where should this go?
-
-<% if user.role == :premium %>
-  <%= link_to [user], class: 'btn btn-danger', method: :set_standard_role do %>
-    Downgrade Membership?
-    ## need to write a warning for this as well in next checkpoint that says
-    what will happen if they downgrade ##
-  <% end %>
-  <% else %>
-    <%= link_to new_charge_path, class: 'btn btn-primary' do %>
-      Upgrade to Premium?
-  <% end %>
-<% end %> -->
