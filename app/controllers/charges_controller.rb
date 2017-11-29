@@ -20,11 +20,11 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
 
-    current_user.role = 'premium'
+    current_user.role = :premium
     current_user.save
 
     flash[:notice] = "Thanks for upgrading, #{current_user.email}! Ready to start your first private wiki?"
-    redirect_to wikis_path # set this to new premium wiki create page?
+    redirect_to new_wiki_path
    rescue Stripe::CardError => e
      flash[:alert] = e.message
      redirect_to new_charges_path

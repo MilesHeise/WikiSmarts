@@ -1,5 +1,5 @@
 class WikisController < ApplicationController
-  before_action :require_sign_in, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show]
 
   def index
     @wikis = Wiki.all

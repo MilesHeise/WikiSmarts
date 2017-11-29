@@ -1,4 +1,4 @@
-<% if user.role == "premium" %>
+<% if user.role == :premium %>
   <%= link_to charges_path, class: 'btn btn-danger', method: :delete do %>
     Downgrade Membership?
     <!-- ## need to write a warning for this as well in next checkpoint that says
