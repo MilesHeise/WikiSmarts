@@ -32,6 +32,7 @@ class ChargesController < ApplicationController
 
   def destroy
     current_user.set_standard_role
+    current_user.publicize
     redirect_to :back
   end
 end
