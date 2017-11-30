@@ -6,7 +6,7 @@
       <div class="media">
         <div class="media-body">
           <h4 class="media-heading">
-            <%= link_to wiki.title, wiki %>
+            <%= link_to markdown(wiki.title), wiki %>
             <% if wiki.private? %>
               <small>
               | Private Wiki
@@ -19,7 +19,7 @@
             <% end %>
           </h4>
           <h6>
-            <%= wiki.body.slice(0..350) %>
+            <%= markdown(wiki.body.slice(0..350)) %>
             . . .
           </h6>
         </div>
