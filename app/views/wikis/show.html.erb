@@ -6,6 +6,12 @@
       Last updated
       <%= time_ago_in_words(@wiki.updated_at) %>
       ago
+      <% if @wiki.private? %>
+        | Private Wiki
+      <% end %>
+      <% if @wiki.user_id == current_user.id %>
+        | Owned post
+      <% end %>
     </small>
   </h1>
 </div>

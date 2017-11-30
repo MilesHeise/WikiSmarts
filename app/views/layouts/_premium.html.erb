@@ -1,8 +1,8 @@
-<% if user.role == :premium %>
-  <%= link_to charges_path, class: 'btn btn-danger', method: :delete do %>
+<% if user.role == "premium" %>
+  <%= link_to charges_path, class: 'btn btn-danger', data: { confirm:
+    "Are you sure you want to downgrade?\n\nAll your private wikis will become public." },
+     method: :delete do %>
     Downgrade Membership?
-    <!-- ## need to write a warning for this as well in next checkpoint that says
-    what will happen if they downgrade ## data: { confirm: 'Are you sure you want to delete this post?' }-->
   <% end %>
   <% else %>
     <%= link_to new_charges_path, class: 'btn btn-primary' do %>

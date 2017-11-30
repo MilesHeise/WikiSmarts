@@ -7,11 +7,21 @@
         <div class="media-body">
           <h4 class="media-heading">
             <%= link_to wiki.title, wiki %>
+            <% if wiki.private? %>
+              <small>
+              | Private Wiki
+              </small>
+            <% end %>
+            <% if wiki.user_id == current_user.id %>
+              <small>
+                | Owned Post
+              </small>
+            <% end %>
           </h4>
-     <!-- <small> there is probably some way to include a preview? 
-          topic.body with some kind of limiter so that it only shows the
-          first few lines and an ellipsis?
-          </small> -->
+          <h6>
+            <%= wiki.body.slice(0..350) %>
+            . . .
+          </h6>
         </div>
       </div>
     <% end %>

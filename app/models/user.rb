@@ -14,4 +14,11 @@ class User < ActiveRecord::Base
     self.role = :standard
     save
   end
+
+  def publicize
+    wikis.each do |wiki|
+      wiki.private = false
+      wiki.save
+    end
+  end
 end

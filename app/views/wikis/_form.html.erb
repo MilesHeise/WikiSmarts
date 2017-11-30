@@ -17,11 +17,12 @@
     <%= f.label :body %>
     <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
   <% end %>
-  <!-- <div class="form-group">
-    <%= f.label :private, class: 'checkbox' do %>
-      <%= f.check_box :private %> Private wiki
-    <% end %>
-  </div>
-    need to add logic to hide this except premium users?-->
+  <% if current_user.admin? || current_user.premium? %>
+    <div class="form-group">
+      <%= f.label :private, class: 'checkbox' do %>
+        <%= f.check_box :private %> Private wiki
+      <% end %>
+    </div>
+  <% end %>
   <%= f.submit "Save", class: 'btn btn-success' %>
 <% end %>
