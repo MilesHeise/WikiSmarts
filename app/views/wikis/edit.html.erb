@@ -21,3 +21,19 @@
     target: '_blank', rel: 'noopener' %>
     to style your text.</p>
 </div>
+
+<div>
+  <%= link_to "add or update collaborators for this wiki?",
+  new_collaborations_path(wiki: @wiki), class: 'btn btn-success' %>
+</div>
+
+<div>
+  <% unless @wiki.collab_users.empty? %>
+  <small>Wiki has collaborators</small>
+  <% end %>
+  <ul>current collaborators:
+    <%= @wiki.collab_users.each do |c| %>
+      <li> <%= c.id %> </li>
+    <% end %>
+  </ul>
+</div>

@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resource :charges, only: %i[new create destroy]
 
+  resource :collaborations, only: %i[new create destroy]
+
   get 'welcome/index'
 
   get 'welcome/about'
