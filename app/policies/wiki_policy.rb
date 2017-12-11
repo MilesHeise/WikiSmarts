@@ -1,7 +1,7 @@
 class WikiPolicy < ApplicationPolicy
   def create?
     user.admin? || user.premium?
-    end
+  end
 
   def destroy?
     user.admin?
@@ -16,13 +16,23 @@ class WikiPolicy < ApplicationPolicy
     end
 
     def resolve
-      if user.admin?
-        Wiki.all
-      elsif user.premium?
-        Wiki.all
+      wikis = []
+      if user.role == 'admin'
+        wikis = scope.all
+      elsif user.role == 'premium'
+        all_wikis = scope.all
+        all_wikis.each do |wiki|
+          if !wiki.private? || wiki.user_id == user.id || wiki.collab_users.include?(user)
+            wikis << wiki
+          end
+        end
       else
-        Wiki.where(private: false)
+        all_wikis = scope.all
+        all_wikis.each do |wiki|
+          wikis << wiki if !wiki.private? || wiki.collab_users.include?(user)
+        end
       end
+      wikis
     end
   end
 end
