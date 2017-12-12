@@ -10,6 +10,7 @@
         | Private Wiki
       <% end %>
       <% if @wiki.user_id == current_user.id %>
+      <!-- fix this for not signed in too? -->
         | Owned post
       <% end %>
     </small>

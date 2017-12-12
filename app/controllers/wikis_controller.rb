@@ -2,7 +2,7 @@ class WikisController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
 
   def index
-    @wikis = policy_scope(Wiki)
+    @wikis = WikiPolicy::Scope.new(current_user, Wiki.all.order('lower(title)')).resolve
   end
 
   def show

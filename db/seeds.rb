@@ -13,7 +13,7 @@ users = User.all
 15.times do
   Wiki.create!(
     title:  Faker::Book.title,
-    body:   Faker::Lorem.paragraphs(rand(2..8)).join('\n'),
+    body:   Faker::Lovecraft.paragraphs(rand(2..8)).join("\n\n"),
     private: false,
     user: users.sample
   )
