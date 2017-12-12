@@ -7,16 +7,10 @@
 
 <div>
   <h1>oh look hey form</h1>
-  <%= form_for(@collab, url: collaborations_path) do |f| %>
-    <%= f.label :user_id %>
-    <%= f.text_field :user_id, class: 'form-control', placeholder: "Enter user id of new collaborator" %>
-    <%= f.hidden_field :wiki_id, value: @wiki %>
+  <%= form_for @collab, url: wiki_collaborations_path(wiki_id: @wiki.id) do |f| %>
+    <%= f.select :email, options_for_select(User.pluck(:email), disabled: ["Select One"]) %>
     <%= f.submit "Save", class: 'btn btn-success' %>
   <% end %>
 </div>
 
-<!--
-change user id param to user email param?
-why inferring wrong path?
-didn't send wiki id. why didn't it send, and why didn't it error?
--->
+<!-- make a link back to wiki -->

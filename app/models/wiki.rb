@@ -9,9 +9,4 @@ class Wiki < ActiveRecord::Base
   validates :user, presence: true
   validates :title, length: { minimum: 5 }, presence: true
   validates :body, length: { minimum: 20 }, presence: true
-
-  # do I actually need this part?
-  def user_ids
-    collab_users.pluck(:id)
-  end
 end

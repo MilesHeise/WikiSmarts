@@ -1,4 +1,7 @@
 class Collaboration < ActiveRecord::Base
+  attr_accessor :email
+  # message about how this worked?
+
   belongs_to :user
   belongs_to :wiki
 

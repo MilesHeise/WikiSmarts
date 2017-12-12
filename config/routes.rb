@@ -3,11 +3,11 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :wikis
+  resources :wikis do
+    resources :collaborations, only: %i[new create destroy]
+  end
 
   resource :charges, only: %i[new create destroy]
-
-  resource :collaborations, only: %i[new create destroy]
 
   get 'welcome/index'
 
