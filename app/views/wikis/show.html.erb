@@ -1,7 +1,7 @@
 <div>
   <h1>
     <%= markdown(@wiki.title) %>
-    <br>
+    </h1>
     <small>
       Last updated
       <%= time_ago_in_words(@wiki.updated_at) %>
@@ -9,19 +9,24 @@
       <% if @wiki.private? %>
         | Private Wiki
       <% end %>
-      <% if @wiki.user_id == current_user.id %>
-      <!-- fix this for not signed in too? -->
-        | Owned post
+      <% if wiki_owner?(@wiki) %>
+        | You created this Wiki
+      <% end %>
+      <% if @wiki.collab_users.include?(current_user) %>
+        | You are authorized to colaborate on this wiki
       <% end %>
     </small>
-  </h1>
 </div>
 
 <div class="row">
   <div class="col-md-8">
     <p><%= markdown(@wiki.body) %></p>
   </div>
-  <div class="col-md-4">
-    <%= link_to "Edit Wiki", edit_wiki_path(@wiki), class: 'btn btn-success' %>
+  <% unless current_user.nil? %>
+  <div class="col-md-4 text-center">
+    <%= link_to "Edit Wiki", edit_wiki_path(@wiki), class: 'btn btn-success btn-lg' %>
   </div>
+  <% else %>
+    <small>Log in or sign up to edit Wikis!</small>
+  <% end %>
 </div>

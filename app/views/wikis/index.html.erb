@@ -5,29 +5,36 @@
     <% @wikis.each do |wiki| %>
       <div class="media">
         <div class="media-body">
-          <h4 class="media-heading">
+          <h3 class="media-heading">
             <%= link_to markdown(wiki.title), wiki %>
             <% if wiki.private? %>
               <small>
               | Private Wiki
               </small>
             <% end %>
-            <% if wiki.user_id == current_user.id %>
-            <!-- need to fix this for not signed in people -->
+            <% if wiki_owner?(wiki) %>
               <small>
-                | Owned Post
+                | You created this Wiki
               </small>
             <% end %>
+            <% if wiki.collab_users.include?(current_user) %>
+              <small>
+                | You are authorized to colaborate on this wiki
+              </small>
+            <% end %>
+          </h3>
+          <h4>
+            <%= markdown(wiki.body.slice(0..350)) %> . . .
           </h4>
-          <h6>
-            <%= markdown(wiki.body.slice(0..350)) %>
-            . . .
-          </h6>
         </div>
       </div>
     <% end %>
   </div>
-  <div class="col-md-4">
-    <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-success' %>
+  <div class="col-md-4 text-center">
+    <% unless current_user.nil? || current_user.standard? %>
+    <%= link_to "Create New Wiki", new_wiki_path, class: 'btn btn-success btn-lg' %>
+    <% else %>
+    <small>Go Premium to make your own new Wikis!</small>
+    <% end %>
   </div>
 </div>

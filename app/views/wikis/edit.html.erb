@@ -8,34 +8,40 @@
       <li>But Xmas is coming.</li>
       <li>Santa sees ALL.</li>
     </ul>
+
+  <% if wiki_owner?(@wiki) || current_user.admin? %>
+  <div>
+    <%= link_to "add new collaborators for this wiki?",
+    new_wiki_collaboration_path(@wiki), class: 'btn btn-success',
+  data: { confirm: 'Collaborators can see and edit a Wiki even if you make it private' } %>
   </div>
+  <% end %>
+
+    <% unless @wiki.collab_users.empty? %>
+    <div>
+    <h4 class="collab-links">Current Collaborators:</h4>
+      <% if wiki_owner?(@wiki) || current_user.admin? %>
+      <% @wiki.collaborations.each do |c| %>
+        <p class="collab-links"><%= c.user.email %>
+        <%= link_to "Remove?", wiki_collaboration_path(@wiki, c),
+        method: :delete, class: 'btn btn-danger',
+      data: { confirm: 'Are you sure you want to remove this collaborator?' } %></p>
+        <% end %>
+        <% else %>
+        <% @wiki.collaborations.each do |c| %>
+        <p class="collab-links"><%= c.user.email %></p>
+        <% end %>
+      <% end %>
+  </div>
+  <% end %>
+  </div>
+
   <div class="col-md-8">
+    <% if current_user.admin? %>
+      <%= button_to "Delete Wiki?", @wiki, method: :delete, class: 'btn btn-danger',
+      data: { confirm: 'Are you sure you want to delete this wiki?' } %>
+    <% end %>
+
     <%= render partial: 'form', locals: { wiki: @wiki } %>
   </div>
-</div>
-
-<div>
-  <p>This site supports styling your text with italics, headers, and more.</p>
-  <p>Click the link for info on how to use
-    <%= link_to 'Markdown', 'https://guides.github.com/features/mastering-markdown/',
-    target: '_blank', rel: 'noopener' %>
-    to style your text.</p>
-</div>
-
-<div>
-  <%= link_to "add or update collaborators for this wiki?",
-  new_wiki_collaboration_path(@wiki), class: 'btn btn-success' %>
-</div>
-
-<div>
-  <% unless @wiki.collab_users.empty? %>
-  <small>Wiki has collaborators</small>
-  <% end %>
-  <ul>current collaborators:
-    <%= @wiki.collaborations.each do |c| %>
-      <li> <%= link_to "Remove #{c.user.email} as Collaborator", wiki_collaboration_path(@wiki, c),
-      method: :delete, class: 'btn btn-danger',
-      data: { confirm: 'Are you sure you want to remove this collaborator?' } %> </li>
-    <% end %>
-  </ul>
 </div>

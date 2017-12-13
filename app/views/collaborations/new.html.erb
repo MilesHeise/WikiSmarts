@@ -1,16 +1,11 @@
 <div>
-  <% User.all.each do |u| %>
-    <small><%= u.email %> | user id #: <%= u.id %></small>
-    <br>
-  <% end %>
-</div>
-
-<div>
-  <h1>oh look hey form</h1>
+  <h1>Choose another Collaborator</h1>
   <%= form_for @collab, url: wiki_collaborations_path(wiki_id: @wiki.id) do |f| %>
     <%= f.select :email, options_for_select(User.pluck(:email), disabled: ["Select One"]) %>
     <%= f.submit "Save", class: 'btn btn-success' %>
   <% end %>
 </div>
 
-<!-- make a link back to wiki -->
+<div>
+  <%= link_to "Back to \"#{@wiki.title}\"", edit_wiki_path(@wiki), class: 'btn btn-success btn-sm' %>
+</div>

@@ -11,15 +11,10 @@
 
     <div class="container">
       <ul class="nav nav-tabs">
-        <li><%= link_to "Blocipedia", wikis_path %></li>
-        <li><%= link_to "About", welcome_about_path %></li>
-      </ul>
-<!-- make blocipedia link go to wikis index, move sign in and stuff up into nav
-and put all of them in a pull-right div -->
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-
-      <% if user_signed_in? %>
+        <li><%= link_to "Wikis", wikis_path %></li>
+        <li><%= link_to "Main", welcome_index_path %></li>
+    <div class="pull-right user-info">
+<% if user_signed_in? %>
         Signed in as:
         <strong><%= current_user.email %></strong>
         |
@@ -33,8 +28,24 @@ and put all of them in a pull-right div -->
         -
         <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
       <% end %>
+    </div>
+    </ul>
+
+
+      <% if flash[:notice] %>
+    <div class="alert alert-success">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= flash[:notice] %>
+    </div>
+    <% elsif flash[:alert] %>
+    <div class="alert alert-warning">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= flash[:alert] %>
+    </div>
+    <% end %>
 
       <%= yield %>
+
     </div>
 
   </body>

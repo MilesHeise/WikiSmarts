@@ -1,2 +1,26 @@
-<h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<br>
+<div class="jumbotron">
+  <% if current_user %>
+  <h1>Welcome back to WikiSmarts, <%= current_user.email %>!</h1>
+  <p>Ready to learn something new?</p>
+  <% else %>
+  <h1>WikiSmarts</h1>
+  <p>WikiSmarts is the center of <em>all</em> knowledge in the world.</p>
+  <p>Read till your brain explodes, or sign in above to contribute</p>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+    <h2>Cold Fusion?</h2>
+    <p>You better believe it. That's in here. The recipe includes a shocking amount of garlic, as it turns out.</p>
+  </div>
+  <div class="col-md-4">
+    <h2>Fermat's Last Theorem?</h2>
+    <p>Our members disproved it. Then proved it again. We can do anything.</p>
+  </div>
+  <div class="col-md-4">
+    <h2>Spontaneous Combustion?</h2>
+    <p>Happens to over 115% of our readers. How is that number even possible? You'll have to read to find out . . .</p>
+  </div>
+</div>

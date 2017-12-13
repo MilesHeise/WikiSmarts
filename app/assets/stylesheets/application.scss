@@ -16,3 +16,33 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "./*";
+
+body {
+  color: #444444;
+  background-color: #EEEEEE;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #444444;
+  text-shadow: 4px 4px 4px #99CCCC;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+small {
+  color: #FF8362;
+}
+
+.user-info {
+  margin-top: 9px;
+}
+
+.nav {
+  margin-top: 5px;
+}
