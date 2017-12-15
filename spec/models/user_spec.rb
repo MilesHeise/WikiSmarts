@@ -7,13 +7,6 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:collaborations) }
   it { is_expected.to have_many(:collab_wikis) }
 
-  it { is_expected.to validate_presence_of(:user) }
-  it { is_expected.to validate_presence_of(:title) }
-  it { is_expected.to validate_presence_of(:body) }
-
-  it { is_expected.to validate_length_of(:title).is_at_least(5) }
-  it { is_expected.to validate_length_of(:body).is_at_least(20) }
-
   describe 'attributes' do
     it 'should have email attribute' do
       expect(user).to have_attributes(email: user.email)
@@ -28,7 +21,7 @@ RSpec.describe User, type: :model do
     end
 
     it 'responds to standard?' do
-      expect(user).to respond_to(:member?)
+      expect(user).to respond_to(:standard?)
     end
 
     it 'responds to premium?' do
@@ -53,7 +46,8 @@ RSpec.describe User, type: :model do
 
     context 'admin user' do
       before do
-        user.admin!
+        user.role = 'admin'
+        user.save
       end
 
       it 'returns false for #standard?' do
@@ -67,7 +61,8 @@ RSpec.describe User, type: :model do
 
     context 'premium user' do
       before do
-        user.premium!
+        user.role = 'premium'
+        user.save
       end
 
       it 'returns false for #standard?' do
@@ -91,13 +86,14 @@ RSpec.describe User, type: :model do
   describe 'set_standard_role callback' do
     it 'triggers set_standard_role on create' do
       expect(user).to receive(:set_standard_role).at_least(:once)
-      user.create!
+      user.create
     end
   end
 
   describe '.set_standard_role' do
     before do
-      user.premium!
+      user.role = 'premium'
+      user.save
     end
 
     it 'returns false for #standard?' do
@@ -109,7 +105,7 @@ RSpec.describe User, type: :model do
     end
 
     before do
-      user.set_standard_role!
+      user.set_standard_role
     end
 
     it 'returns false for #premium?' do
@@ -129,7 +125,7 @@ RSpec.describe User, type: :model do
     end
 
     before do
-      user.publicize!
+      user.publicize
     end
 
     it 'returns false for #private?' do
@@ -137,3 +133,6 @@ RSpec.describe User, type: :model do
     end
   end
 end
+
+# 4 failures, publicize doesn't turn true, set standard role stuff starts already standard,
+# in callback thing apparently user.create doesn't exist

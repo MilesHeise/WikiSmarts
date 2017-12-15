@@ -46,3 +46,5 @@ RSpec.describe CollaborationsController, type: :controller do
     end
   end
 end
+
+# all failures: let user create user gives 'email already taken'

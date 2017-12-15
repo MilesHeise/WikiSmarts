@@ -42,21 +42,21 @@ RSpec.describe WikisController, type: :controller do
     describe 'GET new' do
       it 'returns http redirect' do
         get :new
-        expect(response).to redirect_to(wikis_path)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
     describe 'POST create' do
       it 'returns http redirect' do
         post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user: user }
-        expect(response).to redirect_to(wikis_path)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
     describe 'GET edit' do
       it 'returns http redirect' do
         get :edit, id: wiki.id
-        expect(response).to redirect_to(wikis_path)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
@@ -66,20 +66,21 @@ RSpec.describe WikisController, type: :controller do
         new_body = 'worldhelloworldhelloworld'
 
         put :update, id: wiki.id, wiki: { title: new_title, body: new_body }
-        expect(response).to redirect_to(wikis_path)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
     describe 'DELETE destroy' do
       it 'returns http redirect' do
         delete :destroy, id: wiki.id
-        expect(response).to redirect_to(wikis_path)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
 
   context 'standard user' do
     before do
+      sign_in user
       user.role = 'standard'
       user.save
     end
@@ -178,6 +179,7 @@ RSpec.describe WikisController, type: :controller do
 
   context 'premium user' do
     before do
+      sign_in user
       user.role = 'premium'
       user.save
     end
@@ -295,6 +297,7 @@ RSpec.describe WikisController, type: :controller do
 
   context 'admin user' do
     before do
+      sign_in user
       user.role = 'admin'
       user.save
     end
@@ -416,3 +419,6 @@ RSpec.describe WikisController, type: :controller do
     end
   end
 end
+
+# 13 failures: some are index method on anyone signed in, some are passing string
+# instead of user to wiki controller

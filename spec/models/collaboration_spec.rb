@@ -12,8 +12,10 @@ RSpec.describe Collaboration, type: :model do
   it { is_expected.to validate_presence_of(:wiki_id) }
 
   describe 'attributes' do
-    it 'has a wiki_id user_id attribute' do
+    it 'has a wiki_id and user_id attribute' do
       expect(collaboration).to have_attributes(wiki_id: collaboration.wiki_id, user_id: collaboration.user_id)
     end
   end
 end
+
+# 1 failure, "email has already been taken"
