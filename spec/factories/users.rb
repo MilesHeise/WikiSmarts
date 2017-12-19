@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user do
-    email    Faker::Internet.email
+    sequence(:email) { |n| "person#{n}@example.com" }
     password Faker::Internet.password
     confirmed_at DateTime.now
   end

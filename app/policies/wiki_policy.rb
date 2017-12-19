@@ -1,4 +1,8 @@
 class WikiPolicy < ApplicationPolicy
+  def new?
+    user.admin? || user.premium?
+  end
+
   def create?
     user.admin? || user.premium?
   end

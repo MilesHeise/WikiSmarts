@@ -47,7 +47,7 @@ RSpec.describe User, type: :model do
     context 'admin user' do
       before do
         user.role = 'admin'
-        user.save
+        # user.save
       end
 
       it 'returns false for #standard?' do
@@ -83,16 +83,16 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'set_standard_role callback' do
-    it 'triggers set_standard_role on create' do
-      expect(user).to receive(:set_standard_role).at_least(:once)
-      user.create
+  describe 'init on initialize' do
+    it 'triggers init on initialize' do
+      expect(user).to receive(:init).at_least(:once)
+      user.reload
     end
   end
 
-  describe '.set_standard_role' do
+  describe '.downgrade' do
     before do
-      user.role = 'premium'
+      user.role = :premium
       user.save
     end
 
@@ -105,7 +105,7 @@ RSpec.describe User, type: :model do
     end
 
     before do
-      user.set_standard_role
+      user.downgrade
     end
 
     it 'returns false for #premium?' do
@@ -134,5 +134,6 @@ RSpec.describe User, type: :model do
   end
 end
 
-# 4 failures, publicize doesn't turn true, set standard role stuff starts already standard,
-# in callback thing apparently user.create doesn't exist
+# 4 failures, publicize doesn't turn true
+
+# do I need to create a new instance of user for "init" to work?

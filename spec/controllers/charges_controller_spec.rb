@@ -5,7 +5,7 @@ RSpec.describe ChargesController, type: :controller do
 
   context 'current_user' do
     before do
-      current_user = user
+      sign_in user
     end
 
     describe 'GET #new' do
@@ -28,7 +28,8 @@ RSpec.describe ChargesController, type: :controller do
     describe 'POST create' do
       it 'changes current_user role to premium' do
         post :create, charge: { customer: user.email, amount: 15_00, description: 'Membership', currency: 'usd' }
-        expect(current_user.role).to eql('premium')
+        user.reload
+        expect(user.role).to eql('premium')
       end
 
       it 'redirects to a new wiki' do
@@ -56,4 +57,4 @@ RSpec.describe ChargesController, type: :controller do
   end
 end
 
-# all failures, can't find the right place to assign current_user for some reason
+# how to test if current_user is in the controller methods but can't be used here?

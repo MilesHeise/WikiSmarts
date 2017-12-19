@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe WikisController, type: :controller do
   let(:user) { create(:user) }
-  let(:wiki) { create(:wiki, user: user) }
+  let!(:wiki) { create(:wiki, user: user) }
 
   context 'unsigned-in user' do
     before do
@@ -48,7 +48,7 @@ RSpec.describe WikisController, type: :controller do
 
     describe 'POST create' do
       it 'returns http redirect' do
-        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user: user }
+        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user_id: user.id }
         expect(response).to redirect_to(new_user_session_path)
       end
     end
@@ -123,7 +123,7 @@ RSpec.describe WikisController, type: :controller do
 
     describe 'POST create' do
       it 'returns http redirect' do
-        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user: user }
+        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user_id: user.id }
         expect(response).to redirect_to(wikis_path)
       end
     end
@@ -232,16 +232,16 @@ RSpec.describe WikisController, type: :controller do
 
     describe 'POST create' do
       it 'increases the number of Wiki by 1' do
-        expect { post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user: user } }.to change(Wiki, :count).by(1)
+        expect { post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user_id: user.id } }.to change(Wiki, :count).by(1)
       end
 
       it 'assigns the new wiki to @wiki' do
-        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user: user }
+        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user_id: user.id }
         expect(assigns(:wiki)).to eq Wiki.last
       end
 
       it 'redirects to the new wiki' do
-        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user: user }
+        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user_id: user.id }
         expect(response).to redirect_to [Wiki.last]
       end
     end
@@ -350,16 +350,16 @@ RSpec.describe WikisController, type: :controller do
 
     describe 'POST create' do
       it 'increases the number of Wiki by 1' do
-        expect { post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user: user } }.to change(Wiki, :count).by(1)
+        expect { post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user_id: user.id } }.to change(Wiki, :count).by(1)
       end
 
       it 'assigns the new wiki to @wiki' do
-        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user: user }
+        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user_id: user.id }
         expect(assigns(:wiki)).to eq Wiki.last
       end
 
       it 'redirects to the new wiki' do
-        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user: user }
+        post :create, wiki: { title: Faker::Book.title, body: Faker::Lovecraft.paragraph, private: false, user_id: user.id }
         expect(response).to redirect_to [Wiki.last]
       end
     end
@@ -414,11 +414,10 @@ RSpec.describe WikisController, type: :controller do
 
       it 'redirects to wikis index' do
         delete :destroy, id: wiki.id
-        expect(response).to redirect_to wikis_index_path
+        expect(response).to redirect_to wikis_path
       end
     end
   end
 end
 
-# 13 failures: some are index method on anyone signed in, some are passing string
-# instead of user to wiki controller
+# why is pundit letting standard users hit "new"?

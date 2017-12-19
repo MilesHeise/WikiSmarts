@@ -36,7 +36,7 @@ form {
 }
 
 small {
-  color: #FF8362;
+  color: #FF8362 !important;
 }
 
 .user-info {
@@ -45,4 +45,8 @@ small {
 
 .nav {
   margin-top: 5px;
+}
+
+.edit-section {
+  margin-bottom: 20px;
 }

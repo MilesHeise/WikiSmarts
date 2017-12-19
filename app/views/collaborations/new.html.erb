@@ -1,7 +1,7 @@
 <div>
   <h1>Choose another Collaborator</h1>
   <%= form_for @collab, url: wiki_collaborations_path(wiki_id: @wiki.id) do |f| %>
-    <%= f.select :email, options_for_select(User.pluck(:email), disabled: ["Select One"]) %>
+    <%= f.select :email, options_for_select(User.where.not(id: @wiki.collab_users.pluck(:id) << current_user.id).pluck(:email), disabled: ["Select One"]) %>
     <%= f.submit "Save", class: 'btn btn-success' %>
   <% end %>
 </div>

@@ -17,5 +17,3 @@ RSpec.describe Collaboration, type: :model do
     end
   end
 end
-
-# 1 failure, "email has already been taken"

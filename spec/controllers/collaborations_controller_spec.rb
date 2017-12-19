@@ -24,27 +24,27 @@ RSpec.describe CollaborationsController, type: :controller do
 
   describe 'POST create' do
     it 'increases the number of Collaboration by 1' do
-      expect { post :create, collaboration: { wiki_id: wiki.id, user_id: user.id } }.to change(Collaboration, :count).by(1)
+      expect { post :create, wiki_id: wiki.id, collaboration: { wiki_id: wiki.id, user_id: user.id } }.to change(Collaboration, :count).by(1)
     end
 
     it 'redirects to the new collab page' do
-      post :create, collaboration: { wiki_id: wiki.id, user_id: user.id }
+      post :create, wiki_id: wiki.id, collaboration: { wiki_id: wiki.id, user_id: user.id }
       expect(response).to redirect_to new_wiki_collaboration_path(wiki)
     end
   end
 
   describe 'DELETE destroy' do
     it 'deletes the post' do
-      delete :destroy, id: my_collaboration.id
+      delete :destroy, wiki_id: wiki.id, id: my_collaboration.id
       count = Collaboration.where(id: my_collaboration.id).size
       expect(count).to eq 0
     end
 
     it 'redirects to edit wiki' do
-      delete :destroy, id: my_collaboration.id
-      expect(response).to edit_wiki_path(wiki)
+      delete :destroy, wiki_id: wiki.id, id: my_collaboration.id
+      expect(response).to edit_wiki_path(wiki.id)
     end
   end
 end
 
-# all failures: let user create user gives 'email already taken'
+# both redirects and post not working for some reason
