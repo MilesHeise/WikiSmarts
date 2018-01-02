@@ -135,5 +135,5 @@ RSpec.describe User, type: :model do
 end
 
 # 4 failures, publicize doesn't turn true
-
+# user isn't upgrading to premium first in downgrade test
 # do I need to create a new instance of user for "init" to work?
