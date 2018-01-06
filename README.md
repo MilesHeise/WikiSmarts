@@ -8,7 +8,7 @@ A practice wiki app. Used this project for experience using Pundit gem for autho
 
 * create and seed a sample database to populate the app using `rake db:create` and `rake db:setup`
 
-* run the app with `rails s` and navigating your browser to `localhost:3000`
+* run the app with `rails s` and navigate your browser to `localhost:3000`
 
 * the seeds file includes Admin, Premium and Standard member info preconfirmed that you can use to log in. Admin, for example, uses the e-mail `admin@example.com` and all three use the password "helloworld". With admin you can see full view of all posts and have full power including deleting posts. Premium means you can make private posts, and set collaborators who can see those private posts. Standard members can create regular posts and update public ones, while unsigned-in users are read-only. 
 
