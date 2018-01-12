@@ -36,6 +36,14 @@ premium = User.create!(
   role: 'premium'
 )
 
+# Create a premium user
+premium = User.create!(
+  email:    'premium@example.com',
+  password: 'helloworld',
+  confirmed_at: DateTime.now
+)
+premium.role = 'premium'
+
 # Create a standard member
 member = User.create!(
   email:    'member@example.com',
