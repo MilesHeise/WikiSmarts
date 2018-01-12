@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CollaborationsController, type: :controller do
   let(:user) { create(:user) }
+  let(:other_user) { create(:user, id: 1337) }
   let(:wiki) { create(:wiki) }
   let(:my_collaboration) { create(:collaboration, wiki_id: wiki.id, user_id: user.id) }
 
@@ -24,11 +25,11 @@ RSpec.describe CollaborationsController, type: :controller do
 
   describe 'POST create' do
     it 'increases the number of Collaboration by 1' do
-      expect { post :create, wiki_id: wiki.id, collaboration: { wiki_id: wiki.id, user_id: user.id } }.to change(Collaboration, :count).by(1)
+      expect { post :create, wiki_id: wiki.id, collaboration: { wiki_id: wiki.id, user_id: other_user.id } }.to change(Collaboration, :count).by(1)
     end
 
     it 'redirects to the new collab page' do
-      post :create, wiki_id: wiki.id, collaboration: { wiki_id: wiki.id, user_id: user.id }
+      post :create, wiki_id: wiki.id, collaboration: { wiki_id: wiki.id, user_id: other_user.id }
       expect(response).to redirect_to new_wiki_collaboration_path(wiki)
     end
   end
@@ -42,7 +43,7 @@ RSpec.describe CollaborationsController, type: :controller do
 
     it 'redirects to edit wiki' do
       delete :destroy, wiki_id: wiki.id, id: my_collaboration.id
-      expect(response).to edit_wiki_path(wiki.id)
+      expect(response).to redirect_to edit_wiki_path(wiki.id)
     end
   end
 end

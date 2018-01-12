@@ -33,6 +33,6 @@ class ChargesController < ApplicationController
   def destroy
     current_user.downgrade
     current_user.publicize
-    redirect_to :back
+    redirect_to wikis_path
   end
 end

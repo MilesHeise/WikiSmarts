@@ -6,6 +6,7 @@ RSpec.describe ChargesController, type: :controller do
   context 'current_user' do
     before do
       sign_in user
+      current_user = user
     end
 
     describe 'GET #new' do
@@ -39,8 +40,8 @@ RSpec.describe ChargesController, type: :controller do
     end
 
     describe 'DELETE destroy' do
-      it 'triggers set_standard_role on destroy' do
-        expect(user).to receive(:set_standard_role).at_least(:once)
+      it 'triggers downgrade on destroy' do
+        expect(user).to receive(:downgrade).at_least(:once)
         delete :destroy
       end
 
@@ -51,10 +52,10 @@ RSpec.describe ChargesController, type: :controller do
 
       it 'redirects back' do
         delete :destroy
-        expect(response).to redirect_to :back
+        expect(response).to redirect_to wikis_path
       end
     end
   end
 end
 
-# how to test if current_user is in the controller methods but can't be used here?
+# problem is delete has no reference

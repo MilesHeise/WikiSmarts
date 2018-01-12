@@ -86,7 +86,7 @@ RSpec.describe User, type: :model do
   describe 'init on initialize' do
     it 'triggers init on initialize' do
       expect(user).to receive(:init).at_least(:once)
-      user.reload
+      User.find(user.id)
     end
   end
 
