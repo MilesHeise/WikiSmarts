@@ -4,12 +4,13 @@ require 'faker'
 5.times do
   User.create!(
     email:    Faker::Internet.email,
-    password: Faker::Internet.password
+    password: Faker::Internet.password,
+    confirmed_at: DateTime.now
   )
 end
 users = User.all
 
-# Creat Wikis
+# Create Wikis
 15.times do
   Wiki.create!(
     title:  Faker::Book.title,
@@ -35,14 +36,6 @@ premium = User.create!(
   confirmed_at: DateTime.now,
   role: 'premium'
 )
-
-# Create a premium user
-premium = User.create!(
-  email:    'premium@example.com',
-  password: 'helloworld',
-  confirmed_at: DateTime.now
-)
-premium.role = 'premium'
 
 # Create a standard member
 member = User.create!(
