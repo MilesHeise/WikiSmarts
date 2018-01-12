@@ -2,13 +2,16 @@
 
 <div class="row">
   <div class="col-md-4">
+    <div class="edit-section">
     <p>Do not falsify information in wikis</p>
     <ul>
       <li>We can't really stop you.</li>
       <li>But Xmas is coming.</li>
       <li>Santa sees ALL.</li>
     </ul>
+  </div>
 
+<div class="edit-section">
   <% if wiki_owner?(@wiki) || current_user.admin? %>
   <div>
     <%= link_to "add new collaborators for this wiki?",
@@ -16,7 +19,9 @@
   data: { confirm: 'Collaborators can see and edit a Wiki even if you make it private' } %>
   </div>
   <% end %>
+</div>
 
+<div class="edit-section">
     <% unless @wiki.collab_users.empty? %>
     <div>
     <h4 class="collab-links">Current Collaborators:</h4>
@@ -35,6 +40,7 @@
   </div>
   <% end %>
   </div>
+</div>
 
   <div class="col-md-8">
     <% if current_user.admin? %>

@@ -8,11 +8,19 @@ class User < ActiveRecord::Base
   has_many :collaborations
   has_many :collab_wikis, through: :collaborations, source: :wiki
 
-  after_create :set_standard_role
+  after_initialize :init
 
   enum role: %i[standard premium admin]
 
-  def set_standard_role
+  # def self.collabable(user, wiki)
+  #   where.not(id: wiki.collab_users.pluck(:id) << user.id)
+  # end
+
+  def init
+    self.role ||= :standard
+  end
+
+  def downgrade
     self.role = :standard
     save
   end
