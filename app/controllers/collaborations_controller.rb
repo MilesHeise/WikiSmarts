@@ -5,7 +5,7 @@ class CollaborationsController < ApplicationController
   end
 
   def create
-    user = User.find_by_email(collab_params[:email])
+    user = User.find_by_email(collab_params[:user])
     wiki = Wiki.find(params[:wiki_id])
     collab = wiki.collaborations.new(user: user)
 
@@ -34,6 +34,6 @@ class CollaborationsController < ApplicationController
   private
 
   def collab_params
-    params.require(:collaboration).permit(:email)
+    params.require(:collaboration).permit(:user)
   end
 end

@@ -25,11 +25,15 @@ RSpec.describe CollaborationsController, type: :controller do
 
   describe 'POST create' do
     it 'increases the number of Collaboration by 1' do
-      expect { post :create, wiki_id: wiki.id, collaboration: { wiki_id: wiki.id, user_id: other_user.id } }.to change(Collaboration, :count).by(1)
+      expect do
+        post :create,
+             wiki_id: wiki.id,
+             collaboration: { wiki_id: wiki.id, user: other_user.email }
+      end.to change(Collaboration, :count).by(1)
     end
 
     it 'redirects to the new collab page' do
-      post :create, wiki_id: wiki.id, collaboration: { wiki_id: wiki.id, user_id: other_user.id }
+      post :create, wiki_id: wiki.id, collaboration: { wiki_id: wiki.id, user: other_user.email }
       expect(response).to redirect_to new_wiki_collaboration_path(wiki)
     end
   end
@@ -47,5 +51,3 @@ RSpec.describe CollaborationsController, type: :controller do
     end
   end
 end
-
-# both redirects and post not working for some reason

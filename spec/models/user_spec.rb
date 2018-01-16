@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { create(:user) }
+  let!(:user) { create(:user) }
 
   it { is_expected.to have_many(:wikis) }
   it { is_expected.to have_many(:collaborations) }
@@ -47,7 +47,6 @@ RSpec.describe User, type: :model do
     context 'admin user' do
       before do
         user.role = 'admin'
-        # user.save
       end
 
       it 'returns false for #standard?' do
@@ -85,35 +84,32 @@ RSpec.describe User, type: :model do
 
   describe 'init on initialize' do
     it 'triggers init on initialize' do
-      expect(user).to receive(:init).at_least(:once)
-      User.find(user.id)
+      expect_any_instance_of(User).to receive(:init).at_least(:once)
+      User.new
     end
   end
 
   describe '.downgrade' do
-    before do
-      user.role = :premium
-      user.save
-    end
+    let(:user1) { build(:user, role: 'premium') }
 
     it 'returns false for #standard?' do
-      expect(user.standard?).to be_falsey
+      expect(user1.standard?).to be_falsey
     end
 
     it 'returns true for #premium?' do
-      expect(user.premium?).to be_truthy
+      expect(user1.premium?).to be_truthy
     end
 
     before do
-      user.downgrade
+      user1.downgrade
     end
 
     it 'returns false for #premium?' do
-      expect(user.premium?).to be_falsey
+      expect(user1.premium?).to be_falsey
     end
 
     it 'returns true for #standard?' do
-      expect(user.standard?).to be_truthy
+      expect(user1.standard?).to be_truthy
     end
   end
 
@@ -133,7 +129,3 @@ RSpec.describe User, type: :model do
     end
   end
 end
-
-# 4 failures, publicize doesn't turn true
-# user isn't upgrading to premium first in downgrade test
-# do I need to create a new instance of user for "init" to work?

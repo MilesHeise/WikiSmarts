@@ -419,5 +419,3 @@ RSpec.describe WikisController, type: :controller do
     end
   end
 end
-
-# why is pundit letting standard users hit "new"?
